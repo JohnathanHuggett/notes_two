@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Col, Row, Form, FormGroup, Input, Button } from 'reactstrap';
 
@@ -22,9 +21,7 @@ class LoginPage extends Component {
 
   handleLoginSubmit = e => {
     e.preventDefault();
-    const user = this.state.username;
-    this.props.login(user);
-    window.location.reload();
+    this.props.login(this.state.username);
   };
 
   render() {

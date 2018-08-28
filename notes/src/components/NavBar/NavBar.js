@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { logout } from '../../actions';
 
@@ -22,7 +22,7 @@ const NavBar = props => {
     <Col xs="3" className="Background-Grey">
       <H1>Lambda Notes</H1>
       <Fragment>
-        <Link className="Link" to="/notes">
+        <Link className="Link" to="/">
           <Button className="Button" size="lg" block>
             View Your Notes
           </Button>
@@ -46,9 +46,7 @@ const NavBar = props => {
 const mapStateToProps = state => {
   return state;
 };
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { logout }
-  )(NavBar)
-);
+export default connect(
+  mapStateToProps,
+  { logout }
+)(NavBar);

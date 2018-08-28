@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import LoginPage from "../Login/LoginPage";
+import LoginPage from '../Login/LoginPage';
 
 const Auth = App =>
   class extends Component {
@@ -9,7 +9,7 @@ const Auth = App =>
     };
 
     componentDidMount() {
-      if (!localStorage.getItem("user")) {
+      if (!localStorage.getItem('user')) {
         this.setState({ loggedIn: false });
       } else {
         this.setState({ loggedIn: true });
