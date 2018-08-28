@@ -1,17 +1,19 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row, Form, FormGroup, Input, Button } from "reactstrap";
+import React, { Component } from 'react';
+// import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Col, Row, Form, FormGroup, Input, Button } from 'reactstrap';
 
-import lambdaLogo from "../../utils/logo.png";
+import { login } from '../../actions';
 
-import "./login.css";
+import lambdaLogo from '../../utils/logo.png';
+import './login.css';
 
 // TODO: fix font awesome color
 
 class LoginPage extends Component {
   state = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   };
 
   handleInputChange = e => {
@@ -19,18 +21,20 @@ class LoginPage extends Component {
   };
 
   handleLoginSubmit = e => {
+    e.preventDefault();
     const user = this.state.username;
-    localStorage.setItem("user", user);
+    this.props.login(user);
     window.location.reload();
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className="Login-Container">
         <img className="Login-Logo" src={lambdaLogo} alt="Lambda School Logo" />
         <Row>
           <Col>
-            <Form className="mr-4 ml-3">
+            <Form onSubmit={this.handleLoginSubmit} className="mr-4 ml-3">
               <FormGroup>
                 <Row className="Login-input">
                   <Col xs="1">
@@ -78,4 +82,11 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(LoginPage);
