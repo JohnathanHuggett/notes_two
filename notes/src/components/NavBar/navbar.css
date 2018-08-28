@@ -1,0 +1,22 @@
+.Background-Grey {
+  background-color: #d8d8d8;
+}
+
+.Button {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: #931d25;
+}
+
+.Button:hover {
+  background-color: #d1454e;
+}
+
+.Link:hover {
+  text-decoration: none;
+}
+
+.btn-block {
+  background-color: 'red';
+}

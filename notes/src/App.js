@@ -1,18 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Container, Row } from 'reactstrap';
 
-import Auth from "./components/Authenication/Auth";
+import Auth from './components/Authenication/Auth';
+import NavBar from './components/NavBar/NavBar';
 
-import "./App.css";
+import './App.css';
 
 class App extends Component {
-  // componentDidMount() {
-  //   this.props.getNotes();
-  // }
-
   render() {
-    return <div className="App">Hello</div>;
+    return (
+      <Container className="Container">
+        <Row className="Background">
+          <NavBar />
+        </Row>
+      </Container>
+    );
   }
 }
-// const mapStateToProps = ({}) => {};
 
 export default Auth(App);

@@ -1,0 +1,9 @@
+.Container {
+  max-width: 1000px;
+  height: 100vh;
+}
+
+.Background {
+  height: 100vh;
+  background-color: #f3f3f3;
+}

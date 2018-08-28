@@ -28,7 +28,6 @@ class LoginPage extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="Login-Container">
         <img className="Login-Logo" src={lambdaLogo} alt="Lambda School Logo" />
