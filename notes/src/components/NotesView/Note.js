@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Note = ({ note }) => {
   return (
     <Col className="mb-4 pl-2 pr-2" xs="4">
-      <Link className="Card__Link" to={`/note/${note._id}`}>
+      <Link className="Card__Link" to={`/note/${note.id}`}>
         <Card className="Notes__Note" body>
           <CardTitle className=" Note_Title pb-2 border-bottom border-secondary">
             {note.title}

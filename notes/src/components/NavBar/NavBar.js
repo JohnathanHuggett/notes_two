@@ -17,7 +17,7 @@ const H1 = styled.h1`
   opacity: 0.8;
 `;
 
-const NavBar = props => {
+const NavBar = ({ logout }) => {
   return (
     <Col xs="3" className="Background-Grey">
       <H1>Lambda Notes</H1>
@@ -34,7 +34,7 @@ const NavBar = props => {
         </Link>
 
         <Link className="Link" to="/">
-          <Button onClick={props.logout} className="Button" size="lg" block>
+          <Button onClick={logout} className="Button" size="lg" block>
             Logout
           </Button>
         </Link>

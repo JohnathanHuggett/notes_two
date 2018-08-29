@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 
 import Note from './Note';
+import { getNotes, searchQuery } from '../../actions/';
 
 import styled from 'styled-components';
 import './notesView.css';
@@ -28,6 +29,14 @@ const Input = styled.input`
 `;
 
 class NoteList extends Component {
+  componentDidMount() {
+    this.props.getNotes();
+  }
+
+  handleSearch = e => {
+    this.props.searchQuery(e.target.value);
+  };
+
   render() {
     const { notes } = this.props;
     return (
@@ -38,13 +47,7 @@ class NoteList extends Component {
           </Col>
           <Col xs="6">
             <Form>
-              <Input
-                type="text"
-                placeholder="Search"
-                // value={this.state.searchQuery}
-                onChange={this.handleSearch}
-                name="searchQuery"
-              />
+              <Input type="text" placeholder="Search" onChange={this.handleSearch} />
             </Form>
           </Col>
         </Row>
@@ -67,5 +70,5 @@ const mapStateToProps = ({ notesReducer }) => {
 
 export default connect(
   mapStateToProps,
-  {}
+  { getNotes, searchQuery }
 )(NoteList);

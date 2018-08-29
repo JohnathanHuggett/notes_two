@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Auth from './components/Authenication/Auth';
 import NavBar from './components/NavBar/NavBar';
 import NotesList from './components/NotesView/NotesList';
+import SingleNote from './components/SingleNoteView/SingleNote';
 
 import './App.css';
 
@@ -14,7 +15,8 @@ class App extends Component {
       <Container className="Container">
         <Row className="Background">
           <NavBar />
-          <Route exact to="/" component={NotesList} />
+          <Route exact path="/" component={NotesList} />
+          <Route exact path="/note/:id" component={SingleNote} />
         </Row>
       </Container>
     );
