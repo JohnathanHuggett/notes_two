@@ -1,4 +1,4 @@
 import { login, logout } from './userAction';
-import { searchQuery, getNotes } from './notesAction';
+import { searchQuery, getNotes, getSingleNote } from './notesAction';
 
-export { login, logout, searchQuery, getNotes };
+export { login, logout, searchQuery, getNotes, getSingleNote };
