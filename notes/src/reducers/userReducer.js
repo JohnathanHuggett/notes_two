@@ -32,6 +32,7 @@ export const userReducer = (state = initState, { type, payload, errMsg }) => {
 
     case LOG_OUT:
       localStorage.removeItem('user');
+      localStorage.removeItem('notes');
       window.location.reload();
       return {
         ...state,

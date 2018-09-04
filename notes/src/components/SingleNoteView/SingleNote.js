@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Row, Col, Modal } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { getSingleNote } from '../../actions';
+import { getSingleNote, deleteNote } from '../../actions';
 
 import styled from 'styled-components';
 import './singleNote.css';
@@ -19,11 +19,13 @@ const H3 = styled.h3`
 const Btn = styled.button`
   width: 207px;
   height: 45px;
-  background: #2bc1c4;
   margin-left: 10px;
   color: white;
+  background-color: #d8d8d8
   border: 1px solid black;
+  border-radius: 7px;
 `;
+
 const ModalButton = styled.div`
   display: flex;
   justify-content: center;
@@ -32,6 +34,7 @@ const ModalButton = styled.div`
 class SingleNote extends Component {
   state = {
     DeleteModal: false,
+    Redirect: false,
   };
 
   componentDidMount() {
@@ -43,18 +46,29 @@ class SingleNote extends Component {
     this.setState({ DeleteModal: !this.state.DeleteModal });
   };
 
+  toggleRedirect = () => {
+    this.setState({ Redirect: !this.state.Redirect });
+  };
+
   render() {
     const { note } = this.props;
     return (
       <Col xs="9">
+        {this.state.Redirect ? <Redirect to={'/'} /> : null}
         {this.state.DeleteModal ? (
           <Modal className="Modal" isOpen={this.state.DeleteModal} onClose={this.toggleModal}>
             <p>Are you sure you want to delete this?</p>
             <ModalButton>
-              <Btn className="Button-Danger" onClick={this.handleDelete}>
+              <Btn
+                style={{ backgroundColor: '#931d25' }}
+                onClick={() => {
+                  this.props.deleteNote(note.id);
+                  this.toggleRedirect();
+                }}
+              >
                 Delete
               </Btn>
-              <Btn className="" onClick={this.toggleModal}>
+              <Btn style={{ color: 'black' }} onClick={this.toggleModal}>
                 No
               </Btn>
             </ModalButton>
@@ -62,7 +76,7 @@ class SingleNote extends Component {
         ) : null}
         <Row>
           <Col className="d-flex justify-content-end mr-5 mt-3">
-            <Link className="Link__Note mr-2" to={`/note/edit/`}>
+            <Link className="Link__Note mr-2" to={`/edit`}>
               edit
             </Link>
             <Link onClick={this.toggleModal} className="Link__Note ml-2" to={`/note/${note.id}`}>
@@ -87,5 +101,5 @@ const mapStateToProps = ({ notesReducer }) => {
 
 export default connect(
   mapStateToProps,
-  { getSingleNote }
+  { getSingleNote, deleteNote }
 )(SingleNote);

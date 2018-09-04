@@ -54,7 +54,7 @@ class NoteList extends Component {
 
         <Row className="mb-5">
           {notes.map(note => (
-            <Note key={`${note._id} ${note.title}`} note={note} />
+            <Note key={`${note.id}`} note={note} />
           ))}
         </Row>
       </Col>
