@@ -16,9 +16,11 @@ const notes = localStorage.getItem('notes')
   ? JSON.parse(localStorage.getItem('notes'))
   : [];
 
+const note = localStorage.getItem('note') ? JSON.parse(localStorage.getItem('note')) : {};
+
 const initState = {
   notes,
-  note: {},
+  note,
   fetching: false,
   fetched: false,
   searching: false,
@@ -58,6 +60,7 @@ export const notesReducer = (state = initState, { type, payload, errMsg }) => {
       };
 
     case FETCHED_SINGLE_NOTE:
+      localStorage.setItem('note', JSON.stringify(payload));
       return {
         ...state,
         fetchingNote: false,
