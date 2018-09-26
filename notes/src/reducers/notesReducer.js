@@ -1,6 +1,4 @@
 import {
-  SEARCHING,
-  SEARCHED,
   FETCHING_NOTES,
   FETCHED_NOTES,
   FETCHING_SINGLE_NOTE,
@@ -16,14 +14,15 @@ const notes = localStorage.getItem('notes')
   ? JSON.parse(localStorage.getItem('notes'))
   : [];
 
-const note = localStorage.getItem('note') ? JSON.parse(localStorage.getItem('note')) : {};
+const note = localStorage.getItem('note')
+  ? JSON.parse(localStorage.getItem('note'))
+  : {};
 
 const initState = {
   notes,
   note,
   fetching: false,
   fetched: false,
-  searching: false,
   fetchingNote: false,
   fetchedNote: false,
   addingNote: false,
@@ -60,25 +59,17 @@ export const notesReducer = (state = initState, { type, payload, errMsg }) => {
       };
 
     case FETCHED_SINGLE_NOTE:
-      localStorage.setItem('note', JSON.stringify(payload));
+      const notes = [...state.notes];
+      let note = notes.filter(note => note.id === payload);
+      note = note[0];
+
+      localStorage.setItem('note', JSON.stringify(note));
+
       return {
         ...state,
         fetchingNote: false,
         fetchedNote: true,
-        note: payload,
-      };
-
-    case SEARCHING:
-      return {
-        ...state,
-        searching: true,
-      };
-
-    case SEARCHED:
-      return {
-        ...state,
-        searching: false,
-        notes: payload,
+        note,
       };
 
     case ADDING_NOTE:
@@ -93,7 +84,7 @@ export const notesReducer = (state = initState, { type, payload, errMsg }) => {
         ...state,
         addingNote: false,
         noteAdded: true,
-        notes: [...state.notes, ...payload],
+        notes: [...state.notes, payload],
       };
 
     case DELETING:
@@ -108,14 +99,20 @@ export const notesReducer = (state = initState, { type, payload, errMsg }) => {
         ...state,
         deleting: false,
         deleted: true,
-        notes: [...state.notes, ...payload],
+        notes: payload,
       };
 
     case UPDATED:
+      let editNotes = [...state.notes];
+
+      const index = editNotes.findIndex(note => note.id === payload.id);
+      editNotes.splice(index, 1, payload);
+
       return {
         ...state,
         deleted: false,
-        notes: [...state.notes, ...payload],
+        note: payload,
+        notes: [...editNotes],
       };
 
     default:

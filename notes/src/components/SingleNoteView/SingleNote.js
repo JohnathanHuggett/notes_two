@@ -46,24 +46,24 @@ class SingleNote extends Component {
     this.setState({ DeleteModal: !this.state.DeleteModal });
   };
 
-  toggleRedirect = () => {
-    this.setState({ Redirect: !this.state.Redirect });
-  };
-
   render() {
     const { note } = this.props;
     return (
       <Col xs="9">
         {this.state.Redirect ? <Redirect to={'/'} /> : null}
         {this.state.DeleteModal ? (
-          <Modal className="Modal" isOpen={this.state.DeleteModal} onClose={this.toggleModal}>
+          <Modal
+            className="Modal"
+            isOpen={this.state.DeleteModal}
+            onClose={this.toggleModal}
+          >
             <p>Are you sure you want to delete this?</p>
             <ModalButton>
               <Btn
                 style={{ backgroundColor: '#931d25' }}
                 onClick={() => {
                   this.props.deleteNote(note.id);
-                  this.toggleRedirect();
+                  this.setState({ Redirect: !this.state.Redirect });
                 }}
               >
                 Delete
@@ -79,7 +79,11 @@ class SingleNote extends Component {
             <Link className="Link__Note mr-2" to={`/edit`}>
               edit
             </Link>
-            <Link onClick={this.toggleModal} className="Link__Note ml-2" to={`/note/${note.id}`}>
+            <Link
+              onClick={this.toggleModal}
+              className="Link__Note ml-2"
+              to={`/note/${note.id}`}
+            >
               delete
             </Link>
           </Col>

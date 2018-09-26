@@ -12,6 +12,8 @@ const initState = {
   error: null,
 };
 
+// TODO: Add in error msg once backend is integrated
+
 export const userReducer = (state = initState, { type, payload, errMsg }) => {
   switch (type) {
     case LOGGING_IN:
@@ -33,6 +35,7 @@ export const userReducer = (state = initState, { type, payload, errMsg }) => {
     case LOG_OUT:
       localStorage.removeItem('user');
       localStorage.removeItem('notes');
+      localStorage.removeItem('note');
       window.location.reload();
       return {
         ...state,

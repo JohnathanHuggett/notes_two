@@ -1,9 +1,31 @@
 .Note__Content {
-  max-height: 100px;
+  max-height: 120px;
   white-space: wrap;
+  text-overflow: ellipsis;
   overflow: hidden;
-  /* text-overflow: ellipsis; */
+  /* position: relative; */
+  line-height: 1.5em;
+  /* max-height: 5.9em;  */
+  text-overflow: ellipsis;
 }
+
+/* .Note__Content::before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+} */
+
+/* .Note__Content::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+} */
+
 .Notes__Note {
   font-family: Raleway Regular;
   min-height: 200px;

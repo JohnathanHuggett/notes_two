@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Col, Row, Form, FormGroup, Input, Modal } from 'reactstrap';
+import {
+  Col,
+  Row,
+  Form,
+  FormGroup,
+  Input,
+  Modal,
+} from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -33,16 +40,11 @@ const ModalButton = styled.div`
 
 class CreateNote extends Component {
   state = {
-    id: null,
     title: '',
     content: '',
     DeleteModal: false,
     Redirect: false,
   };
-
-  componentDidMount() {
-    this.setState({ id: this.props.notes.length });
-  }
 
   toggleModal = () => {
     this.setState({ DeleteModal: !this.state.DeleteModal });
@@ -59,10 +61,7 @@ class CreateNote extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    let id = this.state.id;
-
     const fields = {
-      id: ++id, // take this out once server is running
       title: this.state.title,
       content: this.state.content,
     };
@@ -86,7 +85,9 @@ class CreateNote extends Component {
             isOpen={this.state.DeleteModal}
             onClose={this.toggleModal}
           >
-            <p>Please fill out both "title" and "content"</p>
+            <p>
+              Please fill out both "title" and "content"
+            </p>
             <ModalButton>
               <Btn className="" onClick={this.toggleModal}>
                 Ok
@@ -96,7 +97,10 @@ class CreateNote extends Component {
         ) : null}
         <Row>
           <Col>
-            <Form className="mr-4 ml-3" onSubmit={this.handleSubmit}>
+            <Form
+              className="mr-4 ml-3"
+              onSubmit={this.handleSubmit}
+            >
               <H3>Create New Note:</H3>
               <FormGroup>
                 <Input
@@ -119,7 +123,10 @@ class CreateNote extends Component {
                   rows="15"
                 />
               </FormGroup>
-              <Btn className="Button btn btn-primary btn-block" type="submit">
+              <Btn
+                className="Button btn btn-primary btn-block"
+                type="submit"
+              >
                 Save
               </Btn>
             </Form>

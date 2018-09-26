@@ -7,8 +7,6 @@ import { updateNote } from '../../actions';
 
 import styled from 'styled-components';
 
-// TODO: finish HANDLE SUBMIT
-
 const H3 = styled.h3`
   margin-top: 50px;
   margin-bottom: 30px;
@@ -37,10 +35,6 @@ class EditNote extends Component {
     this.setState({ title: this.props.note.title, content: this.props.note.content });
   }
 
-  toggleRedirect = () => {
-    this.setState({ Redirect: !this.state.Redirect });
-  };
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -65,7 +59,7 @@ class EditNote extends Component {
               className="mr-4 ml-3"
               onSubmit={e => {
                 this.handleSubmit(e);
-                this.toggleRedirect();
+                this.setState({ Redirect: !this.state.Redirect });
               }}
             >
               <H3>Edit Note:</H3>

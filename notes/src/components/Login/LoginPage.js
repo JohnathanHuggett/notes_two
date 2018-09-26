@@ -7,8 +7,6 @@ import { login } from '../../actions';
 import lambdaLogo from '../../utils/logo.png';
 import './login.css';
 
-// TODO: fix font awesome color
-
 class LoginPage extends Component {
   state = {
     username: '',

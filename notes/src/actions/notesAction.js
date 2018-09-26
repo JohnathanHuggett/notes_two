@@ -1,7 +1,6 @@
+import axios from 'axios';
 import notes from '../utils/dummyData';
 
-export const SEARCHING = 'SEARCHING';
-export const SEARCHED = 'SEARCHED';
 export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const FETCHED_NOTES = 'FETCHED_NOTES';
 export const FETCHING_SINGLE_NOTE = 'FETCHING_SINGLE_NOTE';
@@ -13,54 +12,45 @@ export const DELETED = 'DELETED';
 export const UPDATING = 'UPDATING';
 export const UPDATED = 'UPDATED';
 
+const URL = 'http://localhost:8000/api/notes/';
+
+// TODO: catch all errs
+
 /* GET NOTE */
 export const getNotes = () => dispatch => {
-  dispatch({ type: FETCHED_NOTES });
+  dispatch({ type: FETCHING_NOTES });
 
-  dispatch({ type: FETCHED_NOTES, payload: notes });
+  axios
+    .get(`${URL}`)
+    .then(({ data }) => dispatch({ type: FETCHED_NOTES, payload: data }))
+    .catch();
 };
 
 /* ADD NOTE */
 export const addNote = note => dispatch => {
   dispatch({ type: ADDING_NOTE });
 
-  notes.push(note);
-
-  dispatch({ type: NOTE_ADDED, payload: notes });
+  axios
+    .post(`${URL}`, note)
+    .then(({ data }) => dispatch({ type: NOTE_ADDED, payload: data }))
+    .catch(err => console.log(err));
 };
 
 /* GET SINGLE NOTE */
 export const getSingleNote = id => dispatch => {
   dispatch({ type: FETCHED_SINGLE_NOTE });
 
-  const note = notes.filter(note => note.id === Number(id));
-
-  dispatch({ type: FETCHED_SINGLE_NOTE, payload: note[0] });
-};
-
-/* SEARCH */
-export const searchQuery = query => dispatch => {
-  dispatch({ type: SEARCHING });
-
-  const foundNotes = notes.filter(note => {
-    return (
-      note.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-      note.content.toLowerCase().indexOf(query.toLowerCase()) !== -1
-    );
-  });
-
-  if (foundNotes) dispatch({ type: SEARCHED, payload: foundNotes });
+  dispatch({ type: FETCHED_SINGLE_NOTE, payload: Number(id) });
 };
 
 /* DELETE */
 export const deleteNote = id => dispatch => {
   dispatch({ type: DELETING });
 
-  const index = notes.findIndex(note => note.id === Number(id));
-
-  notes.splice(index, 1);
-
-  dispatch({ type: DELETED, payload: notes });
+  axios
+    .delete(`${URL}${id}`)
+    .then(({ data }) => dispatch({ type: DELETED, payload: data }))
+    .catch();
 };
 
 /* UPDATE */
@@ -69,9 +59,8 @@ export const updateNote = note => dispatch => {
 
   const { id } = note;
 
-  const index = notes.findIndex(note => note.id === id);
-
-  notes.splice(index, 1, note);
-
-  dispatch({ type: UPDATED, payload: notes });
+  axios
+    .put(`${URL}${id}`, note)
+    .then(({ data }) => dispatch({ type: UPDATED, payload: data }))
+    .catch();
 };

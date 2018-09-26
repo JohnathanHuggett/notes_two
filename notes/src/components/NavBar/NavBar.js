@@ -24,12 +24,12 @@ const NavBar = ({ logout }) => {
       <Fragment>
         <Link className="Link" to="/">
           <Button className="Button" size="lg" block>
-            View Your Notes
+            Your Notes
           </Button>
         </Link>
         <Link className="Link" to="/newnote">
           <Button className="Button" size="lg" block>
-            + Create Your Notes
+            + Create Note
           </Button>
         </Link>
 
@@ -43,10 +43,7 @@ const NavBar = ({ logout }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return state;
-};
 export default connect(
-  mapStateToProps,
+  null,
   { logout }
 )(NavBar);

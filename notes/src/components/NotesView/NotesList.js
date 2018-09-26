@@ -29,16 +29,31 @@ const Input = styled.input`
 `;
 
 class NoteList extends Component {
+  state = {
+    searchQuery: '',
+  };
+
   componentDidMount() {
     this.props.getNotes();
   }
 
   handleSearch = e => {
-    this.props.searchQuery(e.target.value);
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
-    const { notes } = this.props;
+    const noteSearch = this.props.notes.filter(note => {
+      console.log(note);
+      return (
+        note.title
+          .toLowerCase()
+          .indexOf(this.state.searchQuery.toLowerCase()) !== -1 ||
+        note.content
+          .toLowerCase()
+          .indexOf(this.state.searchQuery.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <Col xs="9" className="mb-5 pb-5 pl-5 pr-5 ">
         <Row>
@@ -47,13 +62,19 @@ class NoteList extends Component {
           </Col>
           <Col xs="6">
             <Form>
-              <Input type="text" placeholder="Search" onChange={this.handleSearch} />
+              <Input
+                type="text"
+                placeholder="Search"
+                onChange={this.handleSearch}
+                value={this.state.searchQuery}
+                name="searchQuery"
+              />
             </Form>
           </Col>
         </Row>
 
         <Row className="mb-5">
-          {notes.map(note => (
+          {noteSearch.map(note => (
             <Note key={`${note.id}`} note={note} />
           ))}
         </Row>
